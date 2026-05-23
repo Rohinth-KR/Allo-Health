@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ──────────────────────────────────────────────
+// Product — a SKU in the catalog
+// ──────────────────────────────────────────────
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  sku         String   @unique
+  description String?
+  price       Float    @default(0)
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  stocks       Stock[]
+  reservations Reservation[]
+
+  @@map("products")
+}
+
+// ──────────────────────────────────────────────
+// Warehouse — a physical fulfillment location
+// ──────────────────────────────────────────────
+model Warehouse {
+  id        String   @id @default(cuid())
+  name      String
+  location  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  stocks       Stock[]
+  reservations Reservation[]
+
+  @@map("warehouses")
+}
+
+// ──────────────────────────────────────────────
+// Stock — inventory level per product per warehouse
+// totalUnits    = physical units in warehouse
+// reservedUnits = units currently held by pending reservations
+// available     = totalUnits - reservedUnits (computed at query time)
+// ──────────────────────────────────────────────
+model Stock {
+  id            String @id @default(cuid())
+  productId     String
+  warehouseId   String
+  totalUnits    Int    @default(0)
+  reservedUnits Int    @default(0)
+
+  product   Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  warehouse Warehouse @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, warehouseId])
+  @@map("stocks")
+}
+
+// ──────────────────────────────────────────────
+// Reservation — a temporary hold on inventory
+// ──────────────────────────────────────────────
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  RELEASED
+}
+
+model Reservation {
+  id          String            @id @default(cuid())
+  productId   String
+  warehouseId String
+  quantity    Int
+  status      ReservationStatus @default(PENDING)
+  expiresAt   DateTime
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  product   Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  warehouse Warehouse @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+
+  @@index([status, expiresAt])
+  @@map("reservations")
+}
+
+// ──────────────────────────────────────────────
+// IdempotencyRecord — for bonus idempotency feature
+// Stores response for a given Idempotency-Key to prevent
+// duplicate side effects on retry
+// ──────────────────────────────────────────────
+model IdempotencyRecord {
+  id             String   @id @default(cuid())
+  idempotencyKey String   @unique
+  requestPath    String
+  responseStatus Int
+  responseBody   String
+  createdAt      DateTime @default(now())
+
+  @@index([idempotencyKey])
+  @@map("idempotency_records")
+}
