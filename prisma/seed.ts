@@ -166,7 +166,7 @@ async function main() {
     // Omega-3 — moderately stocked
     [1, 0, 90], [1, 1, 70], [1, 2, 110], [1, 3, 50], [1, 4, 40],
     // Vitamin D3 — high demand, some low stock
-    [2, 0, 200], [2, 1, 180], [2, 2, 250], [2, 3, 30], [2, 4, 15],
+    [2, 0, 200], [2, 1, 180], [2, 2, 250], [2, 3, 30], [2, 4, 1],
     // Probiotics — moderate
     [3, 0, 75], [3, 1, 60], [3, 2, 90], [3, 3, 45], [3, 4, 35],
     // Collagen — premium, lower stock
