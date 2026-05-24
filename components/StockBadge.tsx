@@ -9,37 +9,45 @@ interface StockBadgeProps {
 
 /**
  * StockBadge — Shows available/total units with color-coded status
- * Green = well-stocked, Yellow = low stock, Red = critical/out of stock
+ * Blue = well-stocked, Amber = low stock, Red = critical/out of stock
  */
 export function StockBadge({ available, total }: StockBadgeProps) {
   const percentage = total > 0 ? (available / total) * 100 : 0;
 
-  let variant: "default" | "secondary" | "destructive" | "outline" = "default";
-  let label = "";
+  let bgColor = "";
+  let textColor = "";
   let dotColor = "";
+  let label = "";
 
   if (available === 0) {
-    variant = "destructive";
+    bgColor = "oklch(0.97 0.03 27)";
+    textColor = "oklch(0.55 0.22 27)";
+    dotColor = "oklch(0.65 0.22 27)";
     label = "Out of Stock";
-    dotColor = "bg-red-500";
   } else if (percentage <= 20) {
-    variant = "destructive";
+    bgColor = "oklch(0.97 0.04 50)";
+    textColor = "oklch(0.50 0.18 50)";
+    dotColor = "oklch(0.65 0.18 50)";
     label = `${available} left`;
-    dotColor = "bg-red-500";
   } else if (percentage <= 50) {
-    variant = "outline";
+    bgColor = "oklch(0.97 0.04 80)";
+    textColor = "oklch(0.50 0.14 80)";
+    dotColor = "oklch(0.72 0.14 80)";
     label = `${available} units`;
-    dotColor = "bg-yellow-500";
   } else {
-    variant = "outline";
+    bgColor = "oklch(0.93 0.04 195)";
+    textColor = "oklch(0.38 0.13 195)";
+    dotColor = "oklch(0.55 0.15 195)";
     label = `${available} units`;
-    dotColor = "bg-emerald-500";
   }
 
   return (
-    <Badge variant={variant} className="gap-1.5 font-mono text-xs">
-      <span className={`inline-block h-1.5 w-1.5 rounded-full ${dotColor}`} />
+    <span
+      className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] font-semibold font-mono"
+      style={{ background: bgColor, color: textColor }}
+    >
+      <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: dotColor }} />
       {label}
-    </Badge>
+    </span>
   );
 }

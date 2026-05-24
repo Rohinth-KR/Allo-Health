@@ -44,49 +44,63 @@ export function ReservationCountdown({
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
 
-  // Color shifts as time runs out
   const isUrgent = timeLeft <= 60;
   const isCritical = timeLeft <= 30;
 
-  // Calculate bar percentage from initial time (drains from 100% → 0%)
   const totalDuration = initialTimeRef.current || 600;
   const barPercent = Math.min(100, (timeLeft / totalDuration) * 100);
 
+  // Color logic for medical theme
+  const timerColor = isCritical
+    ? "oklch(0.58 0.22 27)"        // red
+    : isUrgent
+    ? "oklch(0.65 0.16 50)"        // amber
+    : "oklch(0.48 0.17 240)";      // medical blue
+
+  const barColor = isCritical
+    ? "oklch(0.65 0.22 27)"
+    : isUrgent
+    ? "oklch(0.72 0.14 80)"
+    : "linear-gradient(90deg, oklch(0.48 0.17 240), oklch(0.55 0.15 195))";
+
   return (
-    <div className="flex flex-col items-center gap-2">
-      <p className="text-sm text-muted-foreground">Time remaining</p>
+    <div className="flex flex-col items-center gap-3">
+      <p className="text-sm font-medium" style={{ color: "var(--muted-foreground)" }}>
+        🕐 Time Remaining to Confirm
+      </p>
+
+      {/* Timer display */}
       <div
-        className={`
-          font-mono text-4xl font-bold tabular-nums tracking-wider
-          ${isCritical ? "text-red-500 animate-pulse" : ""}
-          ${isUrgent && !isCritical ? "text-yellow-500" : ""}
-          ${!isUrgent ? "text-emerald-400" : ""}
-        `}
+        className={`font-mono text-5xl font-bold tabular-nums tracking-widest ${isCritical ? "animate-pulse" : ""}`}
+        style={{ color: timerColor }}
       >
         {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
       </div>
+
+      {/* Urgency message */}
       {isUrgent && (
-        <p className="text-xs text-red-400">
+        <p className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: isCritical ? "oklch(0.97 0.04 27)" : "oklch(0.97 0.04 50)", color: timerColor }}>
           {timeLeft === 0
-            ? "Reservation expired!"
-            : "Hurry! Reservation expiring soon"}
+            ? "⏰ Reservation expired!"
+            : "⚡ Hurry! Reservation expiring soon"}
         </p>
       )}
+
       {/* Progress bar */}
-      <div className="w-full max-w-xs h-1.5 rounded-full bg-muted overflow-hidden">
+      <div className="w-full max-w-xs h-2 rounded-full overflow-hidden" style={{ background: "oklch(0.92 0.02 220)" }}>
         <div
-          className={`
-            h-full rounded-full transition-all duration-1000 ease-linear
-            ${isCritical ? "bg-red-500" : ""}
-            ${isUrgent && !isCritical ? "bg-yellow-500" : ""}
-            ${!isUrgent ? "bg-emerald-500" : ""}
-          `}
+          className="h-full rounded-full stock-bar-fill"
           style={{
             width: `${barPercent}%`,
+            background: barColor,
           }}
         />
       </div>
+
+      {/* Sub label */}
+      <p className="text-xs" style={{ color: "var(--muted-foreground)" }}>
+        Complete your order before the timer runs out
+      </p>
     </div>
   );
 }
-

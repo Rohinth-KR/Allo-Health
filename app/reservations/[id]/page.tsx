@@ -174,10 +174,10 @@ export default function ReservationPage({
   // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "var(--background)" }}>
         <div className="space-y-4 text-center">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent mx-auto" />
-          <p className="text-muted-foreground">Loading reservation...</p>
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-t-transparent mx-auto" style={{ borderColor: "oklch(0.48 0.17 240)", borderTopColor: "transparent" }} />
+          <p style={{ color: "var(--muted-foreground)" }}>Loading reservation...</p>
         </div>
       </div>
     );
@@ -186,32 +186,18 @@ export default function ReservationPage({
   // Error state
   if (error || !reservation) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Card className="max-w-md w-full mx-4">
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "var(--background)" }}>
+        <Card className="max-w-md w-full mx-4 bg-white" style={{ borderColor: "var(--border)" }}>
           <CardContent className="pt-6 text-center space-y-4">
-            <div className="h-16 w-16 rounded-full bg-destructive/10 flex items-center justify-center mx-auto">
-              <svg
-                className="h-8 w-8 text-destructive"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"
-                />
+            <div className="h-16 w-16 rounded-full flex items-center justify-center mx-auto" style={{ background: "oklch(0.97 0.04 27)" }}>
+              <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "oklch(0.58 0.22 27)" }}>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
               </svg>
             </div>
-            <p className="text-destructive font-medium">
+            <p className="font-medium" style={{ color: "oklch(0.58 0.22 27)" }}>
               {error || "Reservation not found"}
             </p>
-            <Button
-              variant="outline"
-              onClick={() => router.push("/")}
-              className="cursor-pointer"
-            >
+            <Button variant="outline" onClick={() => router.push("/")} className="cursor-pointer">
               ← Back to Products
             </Button>
           </CardContent>
@@ -224,27 +210,18 @@ export default function ReservationPage({
   const totalPrice = reservation.product.price * reservation.quantity;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen" style={{ background: "var(--background)" }}>
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur-xl shadow-sm" style={{ borderColor: "var(--border)" }}>
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <div className="flex h-16 items-center gap-4">
             <button
               onClick={() => router.push("/")}
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+              className="flex items-center gap-2 text-sm transition-colors cursor-pointer hover:opacity-70"
+              style={{ color: "oklch(0.48 0.17 240)" }}
             >
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
               Back to Products
             </button>
