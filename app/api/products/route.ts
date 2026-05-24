@@ -76,8 +76,11 @@ export async function GET() {
     return NextResponse.json(response);
   } catch (error) {
     console.error("GET /api/products error:", error);
+    console.error("DATABASE_URL set:", !!process.env.DATABASE_URL);
+    console.error("Error name:", (error as Error)?.name);
+    console.error("Error message:", (error as Error)?.message);
     return NextResponse.json(
-      { error: "Failed to fetch products" },
+      { error: "Failed to fetch products", details: (error as Error)?.message },
       { status: 500 }
     );
   }
