@@ -145,29 +145,28 @@ export default function ReservationPage({
     });
   }, []);
 
-  // Status badge colors
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "PENDING":
         return (
-          <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">
+          <Badge className="text-sm px-4 py-1.5 font-semibold" style={{ background: "oklch(0.97 0.05 80)", color: "oklch(0.50 0.16 80)", border: "1.5px solid oklch(0.88 0.10 80)" }}>
             ⏳ Pending
           </Badge>
         );
       case "CONFIRMED":
         return (
-          <Badge className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20">
+          <Badge className="text-sm px-4 py-1.5 font-semibold" style={{ background: "oklch(0.94 0.05 195)", color: "oklch(0.38 0.13 195)", border: "1.5px solid oklch(0.82 0.10 195)" }}>
             ✅ Confirmed
           </Badge>
         );
       case "RELEASED":
         return (
-          <Badge className="bg-red-500/10 text-red-500 border-red-500/20">
+          <Badge className="text-sm px-4 py-1.5 font-semibold" style={{ background: "oklch(0.97 0.04 27)", color: "oklch(0.55 0.22 27)", border: "1.5px solid oklch(0.88 0.12 27)" }}>
             ❌ Released
           </Badge>
         );
       default:
-        return <Badge variant="outline">{status}</Badge>;
+        return <Badge variant="outline" className="text-sm px-4 py-1.5">{status}</Badge>;
     }
   };
 
@@ -230,7 +229,7 @@ export default function ReservationPage({
       </header>
 
       {/* Main Content */}
-      <main className="mx-auto max-w-3xl px-4 sm:px-6 py-8">
+      <main className="mx-auto max-w-xl px-4 sm:px-6 py-8">
         <div className="space-y-6">
           {/* Title + Status */}
           <div className="flex items-center justify-between flex-wrap gap-4">
