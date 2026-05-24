@@ -59,12 +59,8 @@ export default function ProductListingPage() {
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ background: "oklch(0.92 0.06 220)" }}>
-                {/* Medical cross */}
-                <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none">
-                  <rect x="9" y="2" width="6" height="20" rx="2" fill="oklch(0.48 0.17 240)" />
-                  <rect x="2" y="9" width="20" height="6" rx="2" fill="oklch(0.48 0.17 240)" />
-                </svg>
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl overflow-hidden" style={{ background: "oklch(0.92 0.06 220)" }}>
+                <img src="/logo.jpg" alt="Allo Health Logo" className="h-10 w-10 object-cover rounded-xl" />
               </div>
               <div>
                 <h1 className="text-lg font-bold tracking-tight" style={{ color: "oklch(0.48 0.17 240)" }}>
@@ -187,11 +183,8 @@ export default function ProductListingPage() {
         {/* Empty DB State */}
         {!isLoading && products.length === 0 && !error && (
           <div className="text-center py-20 space-y-4">
-            <div className="h-16 w-16 rounded-full flex items-center justify-center mx-auto" style={{ background: "oklch(0.92 0.04 220)" }}>
-              <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" style={{ color: "oklch(0.48 0.17 240)" }}>
-                <rect x="9" y="2" width="6" height="20" rx="2" fill="currentColor" />
-                <rect x="2" y="9" width="20" height="6" rx="2" fill="currentColor" />
-              </svg>
+            <div className="h-16 w-16 rounded-full flex items-center justify-center mx-auto overflow-hidden" style={{ background: "oklch(0.92 0.04 220)" }}>
+              <img src="/logo.jpg" alt="Allo Health" className="h-14 w-14 object-cover rounded-full" />
             </div>
             <p className="text-lg" style={{ color: "var(--muted-foreground)" }}>
               No products found. Run{" "}
@@ -228,10 +221,7 @@ export default function ProductListingPage() {
         <footer className="mt-16 border-t pt-8 pb-8" style={{ borderColor: "var(--border)" }}>
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs" style={{ color: "var(--muted-foreground)" }}>
             <div className="flex items-center gap-2">
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none">
-                <rect x="9" y="2" width="6" height="20" rx="2" fill="oklch(0.48 0.17 240)" />
-                <rect x="2" y="9" width="20" height="6" rx="2" fill="oklch(0.48 0.17 240)" />
-              </svg>
+              <img src="/logo.jpg" alt="Allo Health" className="h-5 w-5 rounded object-cover" />
               <span>Allo Health · Built with Next.js, Prisma, Supabase & Upstash Redis</span>
             </div>
             <p>Stock refreshes every 30s · Reservations expire in 10 min</p>
