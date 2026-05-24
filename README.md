@@ -1,4 +1,5 @@
 # Allo Health — Inventory Reservation System
+<img width="1377" height="901" alt="image" src="https://github.com/user-attachments/assets/bf5f8488-0d1b-49d8-b7c9-d86874fe85f0" />
 
 🌐 **Live Demo:** [https://allo-health-dusky.vercel.app](https://allo-health-dusky.vercel.app)
 
