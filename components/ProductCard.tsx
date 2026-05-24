@@ -195,7 +195,7 @@ export function ProductCard({ product, onReserved }: ProductCardProps) {
                     }
                   }}
                   disabled={stock.availableUnits === 0}
-                  className={`w-full rounded-xl px-3 py-2.5 text-left text-sm transition-all ${
+                  className={`warehouse-row w-full rounded-xl px-3 py-2.5 text-left text-sm ${
                     stock.availableUnits === 0 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
                   }`}
                   style={{
@@ -206,7 +206,7 @@ export function ProductCard({ product, onReserved }: ProductCardProps) {
                     border:
                       selectedWarehouse === stock.warehouseId
                         ? "1.5px solid oklch(0.48 0.17 240)"
-                        : "1.5px solid transparent",
+                        : "1.5px solid oklch(0.88 0.03 220)",
                   }}
                 >
                   <div className="flex items-center justify-between mb-1.5">

@@ -128,11 +128,24 @@
 
 /* ── Subtle card hover lift ── */
 .card-hover {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
 }
 .card-hover:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 30px oklch(0.48 0.17 240 / 0.14);
+}
+
+/* ── Warehouse row hover pop ── */
+.warehouse-row {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.warehouse-row:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px oklch(0.48 0.17 240 / 0.12);
+  box-shadow: 0 4px 14px oklch(0.48 0.17 240 / 0.12);
+}
+.warehouse-row:active:not(:disabled) {
+  transform: translateY(0px);
+  box-shadow: none;
 }
 
 /* ── Stock bar ── */
